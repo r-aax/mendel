@@ -28,11 +28,6 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    vector<vector<int>> borders_map;
-
-    /// <summary>
-    /// 
-    /// </summary>
     int borders_map_max { 0 };
 
     /// <summary>
@@ -57,11 +52,25 @@ public:
                   Decomposition& b);
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="ind"></param>
+    /// <returns></returns>
+    bool
+    is_node_isolated(int ind);
+
+    /// <summary>
     ///
     /// </summary>
     /// <param name="v"></param>
     void
     repaint_negative_colors_from_vector(vector<int>& v);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void
+    repaint_isolated_nodes();
 
     /// <summary>
     /// 

@@ -9,17 +9,18 @@ using namespace std;
 /// </summary>
 class AreaGraph
 {
+
+public:
+
     /// <summary>
     /// 
     /// </summary>
-    vector<vector<int>> g;
+    vector<vector<int>> inc;
 
     /// <summary>
     /// 
     /// </summary>
     vector<vector<int>> es;
-
-public:
 
     /// <summary>
     /// 
@@ -33,7 +34,7 @@ public:
     inline size_t
     nodes_count() const
     {
-        return g.size();
+        return inc.size();
     }
 
     /// <summary>
@@ -44,17 +45,6 @@ public:
     edges_count() const
     {
         return es.size();
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="i"></param>
-    /// <returns></returns>
-    inline vector<int>&
-    edge(int i)
-    {
-        return es[i];
     }
 
     /// <summary>

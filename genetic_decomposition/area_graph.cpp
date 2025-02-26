@@ -18,8 +18,8 @@ void
 AreaGraph::link_two_nodes(int a,
                           int b)
 {
-    g[a].push_back(b);
-    g[b].push_back(a);
+    inc[a].push_back(b);
+    inc[b].push_back(a);
     es.push_back({ a, b });
 }
 
@@ -32,8 +32,8 @@ void
 AreaGraph::init_from_rectangular_area(int rows,
                                       int cols)
 {
-    g.clear();
-    g.resize(rows * cols);
+    inc.clear();
+    inc.resize(rows * cols);
 
     for (int i { 0 }; i < rows; ++i)
     {
@@ -62,11 +62,11 @@ AreaGraph::print()
 {
     cout << "G (" << nodes_count() << " nodes, " << edges_count() << " edges):" << endl;
 
-    for (int i { 0 }; i < g.size(); ++i)
+    for (int i { 0 }; i < inc.size(); ++i)
     {
         cout << i << ":";
 
-        for (auto x : g[i])
+        for (auto x : inc[i])
         {
             cout << " " << x;
         }

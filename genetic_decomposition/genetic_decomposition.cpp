@@ -13,20 +13,10 @@ using namespace std;
 int main()
 {
     AreaGraph ag;
-    ag.init_from_rectangular_area(10, 10);
+    ag.init_from_rectangular_area(20, 20);
     ag.print();
 
-    Population p(10, ag, 10);
-
-    p.sort_items();
-    p.print();
- 
-    for (int i { 0 }; i < 10000; ++i)
-    {
-        cout << "epoch " << i << endl;
-        p.evolution(0.25);
-        p.print();
-    }
-
-    p.items[0]->print();
+    Decomposition d(ag, 20);
+    d.paint_random();
+    d.print();
 }

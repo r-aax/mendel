@@ -3,6 +3,8 @@
 #include <iostream>
 #include <algorithm>
 
+#include "borders_map.h"
+
 using namespace std;
 
 /// <summary>
@@ -14,8 +16,7 @@ Decomposition::Decomposition(AreaGraph& g_,
                              int colors_count_)
     : g(g_),
       colors_count(colors_count_),
-      nodes_colors(g.nodes_count()),
-      borders_map(colors_count, vector<int>(colors_count))
+      nodes_colors(g.nodes_count())
 {
 }
 
@@ -28,8 +29,7 @@ Decomposition::Decomposition(Decomposition& a,
                              Decomposition& b)
     : g(a.g),
       colors_count(a.colors_count),
-      nodes_colors(g.nodes_count()),
-      borders_map(colors_count, vector<int>(colors_count))
+      nodes_colors(g.nodes_count())
 {
     vector<int> hist(colors_count);
 
@@ -61,7 +61,29 @@ Decomposition::Decomposition(Decomposition& a,
 
     random_shuffle(unused_colors.begin(), unused_colors.end());
     repaint_negative_colors_from_vector(unused_colors);
+    repaint_isolated_nodes();
     calculate_borders_map();
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="ind"></param>
+/// <returns></returns>
+bool
+Decomposition::is_node_isolated(int ind)
+{
+    int color { nodes_colors[ind] };
+
+    for (int ngh : g.inc[ind])
+    {
+        if (nodes_colors[ngh] == color)
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 /// <summary>
@@ -82,6 +104,27 @@ Decomposition::repaint_negative_colors_from_vector(vector<int>& v)
 
         ++ni;
     }
+}
+
+/// <summary>
+/// 
+/// </summary>
+void
+Decomposition::repaint_isolated_nodes()
+{
+    vector<int> unused_colors;
+
+    for (int i = 0; i < g.nodes_count(); ++i)
+    {
+        if (is_node_isolated(i))
+        {
+            unused_colors.push_back(nodes_colors[i]);
+            nodes_colors[i] = -1;
+        }
+    }
+
+    random_shuffle(unused_colors.begin(), unused_colors.end());
+    repaint_negative_colors_from_vector(unused_colors);
 }
 
 /// <summary>
@@ -143,46 +186,11 @@ Decomposition::paint_from_vector(vector<int> init_colors)
 void
 Decomposition::calculate_borders_map()
 {
-    for (int i { 0 }; i < colors_count; ++i)
-    {
-        for (int j { 0 }; j < colors_count; ++j)
-        {
-            borders_map[i][j] = 0;
-        }
-    }
+    BordersMap bm(colors_count);
 
-    for (int i { 0 }; i < g.edges_count(); ++i)
-    {
-        vector<int>& e { g.edge(i) };
-        int a { e[0] }, b { e[1] };
-
-        int ca { nodes_colors[a] }, cb { nodes_colors[b] };
-
-        if (ca != cb)
-        {
-            if (ca > cb)
-            {
-                swap(ca, cb);
-            }
-
-            ++borders_map[ca][cb];
-        }
-    }
-
-    borders_map_max = 0;
-    borders_map_sum = 0;
-
-    for (int i { 0 }; i < colors_count; ++i)
-    {
-        for (int j { 0 }; j < colors_count; ++j)
-        {
-            int v { borders_map[i][j] };
-
-            borders_map_max = max<int>(borders_map_max, v);
-            borders_map_sum += v;
-
-        }
-    }
+    bm.calc(g.es, nodes_colors);
+    borders_map_max = bm.max();
+    borders_map_sum = bm.sum();
 }
 
 /// <summary>
@@ -195,27 +203,15 @@ Decomposition::print()
     
     cout << "COLORS:";
 
-    for (int i { 0 }; i < nodes_colors.size(); )
+    for (int i { 0 }; i < nodes_colors.size(); ++i)
     {
-        cout << " " << nodes_colors[i];
-
-        ++i;
-
         if ((i % colors_count) == 0)
         {
             cout << endl;
         }
+
+        cout << " " << nodes_colors[i];
     }
 
-    cout << "BORDERS MAP:" << endl;
-
-    for (int i { 0 }; i < colors_count; ++i)
-    {
-        for (int j { 0 }; j < colors_count; ++j)
-        {
-            cout << " " << borders_map[i][j];
-        }
-
-        cout << endl;
-    }
+    cout << endl;
 }

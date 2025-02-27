@@ -20,8 +20,7 @@ Population::Population(int population_size,
     for (int i { 0 }; i < items.size(); ++i)
     {
         Decomposition* d = new Decomposition(g, colors_count);
-        
-        d->paint_random();
+
         items[i] = d;
     }
 }
@@ -67,27 +66,7 @@ Population::evolution(double ratio)
 
     int extinction_count = static_cast<int>(items.size() * ratio);
 
-    // remove the worst items
-    for (int i { 0 }; i < extinction_count; ++i)
-    {
-        delete items.back();
-        items.pop_back();
-    }
-
-    int lo { 0 };
-    int hi { static_cast<int>(items.size() - 1) };
-
-    // generate new items
-    for (int i{ 0 }; i < extinction_count; ++i)
-    {
-        Decomposition* d = new Decomposition(*items[lo], *items[hi]);
-
-        items.push_back(d);
-        ++lo;
-        --hi;
-    }
-
-    sort_items();
+    cout << "extinction : " << extinction_count << endl;
 }
 
 /// <summary>
@@ -100,7 +79,8 @@ Population::print()
 
     for (auto d : items)
     {
-        cout << " " << d->cost();
+        cout << " " << d->cost()
+             << " (" << d->max_domain << "/" << d->max_border << "/" << d->total_borders << ")";
     }
 
     cout << endl;

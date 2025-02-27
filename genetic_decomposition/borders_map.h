@@ -40,8 +40,8 @@ public:
     /// <param name="es"></param>
     /// <param name="nc"></param>
     void
-    calc(vector<vector<int>>& es,
-         vector<int> nc);
+    calc(const vector<vector<int>>& es,
+         const vector<int> nc);
 
     /// <summary>
     /// 

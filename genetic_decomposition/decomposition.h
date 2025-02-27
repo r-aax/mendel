@@ -1,6 +1,7 @@
 #pragma once
 
 #include "area_graph.h"
+#include "genome.h"
 
 /// <summary>
 /// 
@@ -23,17 +24,27 @@ public:
     /// <summary>
     /// 
     /// </summary>
+    Genome genome;
+
+    /// <summary>
+    /// 
+    /// </summary>
     vector<int> nodes_colors;
 
     /// <summary>
     /// 
     /// </summary>
-    int borders_map_max { 0 };
+    int max_domain{ 0 };
 
     /// <summary>
     /// 
     /// </summary>
-    int borders_map_sum { 0 };
+    int max_border{ 0 };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    int total_borders{ 0 };
 
     /// <summary>
     /// 
@@ -46,57 +57,32 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    Decomposition(Decomposition& a,
-                  Decomposition& b);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="ind"></param>
-    /// <returns></returns>
-    bool
-    is_node_isolated(int ind);
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="v"></param>
-    void
-    repaint_negative_colors_from_vector(vector<int>& v);
+    inline void
+    reset_nodes_colors()
+    {
+        for (auto& x : nodes_colors)
+        {
+            x = -1;
+        }
+    }
 
     /// <summary>
     /// 
     /// </summary>
     void
-    repaint_isolated_nodes();
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="start_color"></param>
-    void
-    paint_uniform(int start_color = 0);
+    paint_incremental();
 
     /// <summary>
     /// 
     /// </summary>
     void
-    paint_random();
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="init_colors"></param>
-    void
-    paint_from_vector(vector<int> init_colors);
+    paint_from_genome();
 
     /// <summary>
     /// 
     /// </summary>
     void
-    calculate_borders_map();
+    calculate_metrics();
 
     /// <summary>
     /// 
@@ -104,12 +90,13 @@ public:
     inline int
     cost() const
     {
-        return borders_map_sum;
+        return max_domain + max_border + total_borders;
     }
 
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="count_in_row"></param>
     void
-    print();
+    print(int count_in_row);
 };

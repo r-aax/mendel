@@ -3,6 +3,7 @@
 #include "area_graph.h"
 #include "decomposition.h"
 #include "population.h"
+#include "genome.h"
 
 using namespace std;
 
@@ -12,11 +13,21 @@ using namespace std;
 /// <returns></returns>
 int main()
 {
+    // area
     AreaGraph ag;
-    ag.init_from_rectangular_area(20, 20);
+    ag.init_from_rectangular_area(10, 10);
     ag.print();
 
-    Decomposition d(ag, 20);
-    d.paint_random();
-    d.print();
+    // create population
+    Population pop(10, ag, 4);
+
+    // info
+    for (auto dp : pop.items)
+    {
+        dp->paint_from_genome();
+        dp->calculate_metrics();
+    }
+
+    pop.sort_items();
+    pop.print();
 }

@@ -31,8 +31,8 @@ BordersMap::clear()
 /// <param name="es"></param>
 /// <param name="nc"></param>
 void
-BordersMap::calc(vector<vector<int>>& es,
-                 vector<int> nc)
+BordersMap::calc(const vector<vector<int>>& es,
+                 const vector<int> nc)
 {
     clear();
 

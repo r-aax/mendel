@@ -14,6 +14,11 @@ public:
     /// <summary>
     /// 
     /// </summary>
+    static double mutation_probability;
+
+    /// <summary>
+    /// 
+    /// </summary>
     AreaGraph& g;
 
     /// <summary>
@@ -117,5 +122,5 @@ public:
     /// </summary>
     /// <param name="count_in_row"></param>
     void
-    print(int count_in_row);
+    print(size_t count_in_row);
 };

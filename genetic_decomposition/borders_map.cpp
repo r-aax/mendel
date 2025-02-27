@@ -6,7 +6,7 @@
 /// <param name="colors_count_"></param>
 BordersMap::BordersMap(size_t colors_count_)
     : colors_count{ colors_count_ },
-      m(colors_count, vector<int>(colors_count, 0))
+      m(colors_count, vector<size_t>(colors_count, 0))
 {
 }
 
@@ -31,15 +31,15 @@ BordersMap::clear()
 /// <param name="es"></param>
 /// <param name="nc"></param>
 void
-BordersMap::calc(const vector<vector<int>>& es,
+BordersMap::calc(const vector<vector<size_t>>& es,
                  const vector<int> nc)
 {
     clear();
 
     for (auto& e : es)
     {
-        int a{ e[0] }, b{ e[1] };
-        int ca{ nc[a] }, cb{ nc[b] };
+        auto a{ e[0] }, b{ e[1] };
+        auto ca{ nc[a] }, cb{ nc[b] };
 
         if (ca != cb)
         {
@@ -60,7 +60,7 @@ BordersMap::calc(const vector<vector<int>>& es,
 int
 BordersMap::max()
 {
-    int r{ 0 };
+    size_t r{ 0 };
 
     for (auto& row : m)
     {

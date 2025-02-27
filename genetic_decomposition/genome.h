@@ -44,7 +44,7 @@ public:
     /// 
     /// </summary>
     /// <param name="inc"></param>
-    void mutate(const vector<vector<int>>& inc);
+    void mutate(const vector<vector<size_t>>& inc);
 
     /// <summary>
     /// 

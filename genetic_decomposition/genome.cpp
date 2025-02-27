@@ -43,7 +43,7 @@ Genome::Genome(const Genome& a,
 /// 
 /// </summary>
 /// <param name="inc"></param>
-void Genome::mutate(const vector<vector<int>>& inc)
+void Genome::mutate(const vector<vector<size_t>>& inc)
 {
     // select gene index (color)
     auto i{ randint(size()) };

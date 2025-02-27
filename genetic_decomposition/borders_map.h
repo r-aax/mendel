@@ -20,7 +20,7 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    vector<vector<int>> m;
+    vector<vector<size_t>> m;
 
     /// <summary>
     /// 
@@ -40,7 +40,7 @@ public:
     /// <param name="es"></param>
     /// <param name="nc"></param>
     void
-    calc(const vector<vector<int>>& es,
+    calc(const vector<vector<size_t>>& es,
          const vector<int> nc);
 
     /// <summary>

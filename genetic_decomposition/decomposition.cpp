@@ -53,7 +53,7 @@ Decomposition::Decomposition(const Decomposition& d1,
 void
 Decomposition::paint_incremental()
 {
-    deque<int> q;
+    deque<size_t> q;
 
     // put into deque data from genome
     for (int i{ 0 }; i < genome.items.size(); ++i)
@@ -67,7 +67,7 @@ Decomposition::paint_incremental()
     // try to growth
     while (!q.empty())
     {
-        int node{ q.front() };
+        size_t node{ q.front() };
         int color{ nodes_colors[node] };
         bool is_ngh_found{ false };
 
@@ -124,7 +124,7 @@ Decomposition::calculate_metrics()
 /// </summary>
 /// <param name="count_in_row"></param>
 void
-Decomposition::print(int count_in_row)
+Decomposition::print(size_t count_in_row)
 {
     cout << "DECOMP: max_domain = " << max_domain << ", max_border = " << max_border << ", total_borders = " << total_borders
          << ", cost = " << cost() << endl;

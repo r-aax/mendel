@@ -19,7 +19,7 @@ int main()
     // area
     AreaGraph ag;
     ag.init_from_rectangular_area(45, 45);
-    ag.print();
+    // ag.print();
 
     // create polulation
     Population pop(100, ag, 9);
@@ -27,10 +27,10 @@ int main()
     pop.sort_items();
     pop.print();
 
-    for (auto i{ 0 }; i < 500; ++i)
+    for (auto i{ 0 }; i < 100; ++i)
     {
         cout << "i = " << i << endl;
-        pop.evolution_step(0.25);
+        pop.evolution_step(CrossoverPairsSelectionStrategy::Random, 0.25);
         pop.print();
 
         if (pop.items[0]->cost() == pop.items.back()->cost())

@@ -4,6 +4,8 @@
 #include <cassert>
 #include <iostream>
 
+#include "utils.h"
+
 using namespace std;
 
 /// <summary>
@@ -76,33 +78,118 @@ void Population::worst_extinction(size_t count)
 /// 
 /// </summary>
 /// <param name="count"></param>
-void Population::revival(size_t count)
+void Population::revival_random(size_t count)
 {
-    // one new creature can be born from two parents
-    assert(2 * count <= size());
+    assert(size() >= 2);
 
-    size_t lo{ 0 }, hi{ size() - 1 };
+    auto s{ size() };
 
-    for (auto i{ 0 }; i < count; ++i)
+    // construct new creatures
+    for (auto i{ 0 }; i < count; )
     {
-        Decomposition* d = new Decomposition(*items[lo + i], *items[hi - i]);
+        auto father{ randint(s) };
+        auto mother{ randint(s) };
 
-        items.push_back(d);
+        if (father != mother)
+        {
+            items.push_back(new Decomposition(*items[father], *items[mother]));
+            ++i;
+        }
     }
 }
 
 /// <summary>
 /// 
 /// </summary>
+/// <param name="count"></param>
+void Population::revival_best_n_worst_n(size_t count)
+{
+    assert(2 * count <= size());
+
+    size_t lo{ 0 }, hi{ size() - 1 };
+
+    for (auto i{ 0 }; i < count; ++i)
+    {
+        items.push_back(new Decomposition(*items[lo + i], *items[hi - i]));
+    }
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="count"></param>
+void Population::revival_best_1_worst_n(size_t count)
+{
+    assert(count + 1 <= size());
+
+    size_t hi{ size() - 1 };
+
+    for (auto i{ 0 }; i < count; ++i)
+    {
+        items.push_back(new Decomposition(*items[0], *items[hi - i]));
+    }
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="count"></param>
+void Population::revical_best_pairs(size_t count)
+{
+    assert(2 * count <= size());
+
+    for (auto i{ 0 }; i < count; ++i)
+    {
+        items.push_back(new Decomposition(*items[2 * i], *items[2 * i + 1]));
+    }
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="strategy"></param>
+/// <param name="count"></param>
+void Population::revival(CrossoverPairsSelectionStrategy strategy,
+                         size_t count)
+{
+    switch (strategy)
+    {
+        case CrossoverPairsSelectionStrategy::Random:
+            revival_random(count);
+            break;
+
+        case CrossoverPairsSelectionStrategy::BestN_WorstN:
+            revival_best_n_worst_n(count);
+            break;
+
+        case CrossoverPairsSelectionStrategy::Best1_WorstN:
+            revival_best_1_worst_n(count);
+            break;
+
+        case CrossoverPairsSelectionStrategy::BestPairs:
+            revical_best_pairs(count);
+            break;
+
+        default:
+            throw exception();
+            break;
+    }
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="strategy"></param>
 /// <param name="ratio"></param>
-void Population::evolution_step(double ratio)
+void Population::evolution_step(CrossoverPairsSelectionStrategy strategy,
+                                double ratio)
 {
     assert((ratio > 0.0) && (ratio <= 0.25));
 
     size_t count = static_cast<size_t>(items.size() * ratio);
 
     worst_extinction(count);
-    revival(count);
+    revival(strategy, count);
     sort_items();
 }
 

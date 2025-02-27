@@ -11,7 +11,7 @@ class Decomposition
     /// <summary>
     /// 
     /// </summary>
-    const double genome_mutation_probability{ 0.0 };
+    const double genome_mutation_probability{ 0.1 };
 
 public:
 
@@ -111,8 +111,7 @@ public:
     inline int
     cost() const
     {
-        return total_borders;
-        //return max_domain + max_border + total_borders;
+        return max_domain + max_border + total_borders;
     }
 
     /// <summary>

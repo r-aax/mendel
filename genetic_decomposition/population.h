@@ -1,6 +1,7 @@
 #pragma once
 
 #include "decomposition.h"
+#include "evolution_types.h"
 
 /// <summary>
 /// 
@@ -55,13 +56,41 @@ public:
     /// 
     /// </summary>
     /// <param name="count"></param>
-    void revival(size_t count);
+    void revival_random(size_t count);
 
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="count"></param>
+    void revival_best_n_worst_n(size_t count);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="count"></param>
+    void revival_best_1_worst_n(size_t count);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="count"></param>
+    void revical_best_pairs(size_t count);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="strategy"></param>
+    /// <param name="count"></param>
+    void revival(CrossoverPairsSelectionStrategy strategy,
+                 size_t count);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="strategy"></param>
     /// <param name="ratio"></param>
-    void evolution_step(double ratio);
+    void evolution_step(CrossoverPairsSelectionStrategy strategy,
+                        double ratio);
 
     /// <summary>
     /// 

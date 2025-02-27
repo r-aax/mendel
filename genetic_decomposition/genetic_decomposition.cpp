@@ -5,6 +5,7 @@
 #include "population.h"
 #include "genome.h"
 #include "utils.h"
+#include "evolution.h"
 
 using namespace std;
 
@@ -17,27 +18,16 @@ int main()
     srand(static_cast<unsigned int>(time({})));
 
     // area
-    AreaGraph ag;
-    ag.init_from_rectangular_area(45, 45);
-    // ag.print();
+    size_t side{ 50 };
+    AreaGraph area_graph;
+    area_graph.init_from_rectangular_area(side, side);
+ 
+    // evolution
+    Evolution evo(area_graph, 10,
+                  500, 200, 0.1, 0.1,
+                  CrossoverPairsSelectionStrategy::BestN_WorstN,
+                  side);
 
-    // create polulation
-    Population pop(100, ag, 9);
-
-    pop.sort_items();
-    pop.print();
-
-    for (auto i{ 0 }; i < 100; ++i)
-    {
-        cout << "i = " << i << endl;
-        pop.evolution_step(CrossoverPairsSelectionStrategy::Random, 0.25);
-        pop.print();
-
-        if (pop.items[0]->cost() == pop.items.back()->cost())
-        {
-            break;
-        }
-    }
-
-    pop.items[0]->print(45);
+    // run evolution
+    evo.run();
 }

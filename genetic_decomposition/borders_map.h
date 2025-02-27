@@ -15,7 +15,7 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    int colors_count;
+    size_t colors_count;
 
     /// <summary>
     /// 
@@ -26,7 +26,7 @@ public:
     /// 
     /// </summary>
     /// <param name="colors_count_"></param>
-    BordersMap(int colors_count_);
+    BordersMap(size_t colors_count_);
 
     /// <summary>
     /// 

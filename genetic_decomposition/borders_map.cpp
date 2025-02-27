@@ -4,8 +4,8 @@
 /// 
 /// </summary>
 /// <param name="colors_count_"></param>
-BordersMap::BordersMap(int colors_count_)
-    : colors_count(colors_count_),
+BordersMap::BordersMap(size_t colors_count_)
+    : colors_count{ colors_count_ },
       m(colors_count, vector<int>(colors_count, 0))
 {
 }

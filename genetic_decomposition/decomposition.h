@@ -8,10 +8,6 @@
 /// </summary>
 class Decomposition
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    const double genome_mutation_probability{ 0.1 };
 
 public:
 
@@ -23,7 +19,7 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    int colors_count { 0 };
+    size_t colors_count { 0 };
 
     /// <summary>
     /// 
@@ -56,15 +52,17 @@ public:
     /// <param name="g_"></param>
     /// <param name="colors_count_"></param>
     Decomposition(AreaGraph& g_,
-                  int colors_count_);
+                  size_t colors_count_);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="d1"></param>
     /// <param name="d2"></param>
+    /// <param name="mutation_probability"></param>
     Decomposition(const Decomposition& d1,
-                  const Decomposition& d2);
+                  const Decomposition& d2,
+                  double mutation_probability);
 
     /// <summary>
     /// 

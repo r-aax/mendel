@@ -94,7 +94,7 @@ public:
         int s{ *max_element(v.begin(), v.end()) };
 
         clear();
-        h.resize(s + 1);
+        h.resize(static_cast<size_t>(s) + 1);
 
         for (auto x : v)
         {

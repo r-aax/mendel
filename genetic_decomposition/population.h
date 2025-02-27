@@ -22,9 +22,9 @@ public:
     /// <param name="population_size"></param>
     /// <param name="g"></param>
     /// <param name="colors_count"></param>
-    Population(int population_size,
+    Population(size_t population_size,
                AreaGraph& g,
-               int colors_count);
+               size_t colors_count);
 
     /// <summary>
     /// 
@@ -56,41 +56,62 @@ public:
     /// 
     /// </summary>
     /// <param name="count"></param>
-    void revival_random(size_t count);
+    /// <param name="mutation_probability"></param>
+    void revival_random(size_t count,
+                        double mutation_probability);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="count"></param>
-    void revival_best_n_worst_n(size_t count);
+    /// <param name="mutation_probability"></param>
+    void revival_best_n_worst_n(size_t count,
+                                double mutation_probability);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="count"></param>
-    void revival_best_1_worst_n(size_t count);
+    /// <param name="mutation_probability"></param>
+    void revival_best_1_worst_n(size_t count,
+                                double mutation_probability);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="count"></param>
-    void revical_best_pairs(size_t count);
+    /// <param name="mutation_probability"></param>
+    void revical_best_pairs(size_t count,
+                            double mutation_probability);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="strategy"></param>
     /// <param name="count"></param>
+    /// <param name="mutation_probability"></param>
     void revival(CrossoverPairsSelectionStrategy strategy,
-                 size_t count);
+                 size_t count,
+                 double mutation_probability);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="strategy"></param>
-    /// <param name="ratio"></param>
+    /// <param name="extinction_ratio"></param>
+    /// <param name="mutation_probability"></param>
     void evolution_step(CrossoverPairsSelectionStrategy strategy,
-                        double ratio);
+                        double extinction_ratio,
+                        double mutation_probability);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    bool is_smooth() const
+    {
+        return items[0]->cost() == items.back()->cost();
+    }
 
     /// <summary>
     /// 

@@ -15,9 +15,9 @@ using namespace std;
 /// <param name="g_"></param>
 /// <param name="colors_count_"></param>
 Decomposition::Decomposition(AreaGraph& g_,
-                             int colors_count_)
-    : g(g_),
-      colors_count(colors_count_),
+                             size_t colors_count_)
+    : g{ g_ },
+      colors_count{ colors_count_ },
       genome(colors_count, g.nodes_count()),
       nodes_colors(g.nodes_count())
 {
@@ -29,15 +29,17 @@ Decomposition::Decomposition(AreaGraph& g_,
 /// </summary>
 /// <param name="d1"></param>
 /// <param name="d2"></param>
+/// <param name="mutation_probability"></param>
 Decomposition::Decomposition(const Decomposition& d1,
-                             const Decomposition& d2)
+                             const Decomposition& d2,
+                             double mutation_probability)
     : g(d1.g),
       colors_count(d1.colors_count),
       genome(d1.genome, d2.genome),
       nodes_colors(g.nodes_count())
 {
     // mutation
-    if (randbool(genome_mutation_probability))
+    if (randbool(mutation_probability))
     {
         genome.mutate(g.inc);
     }

@@ -47,13 +47,13 @@ public:
     /// 
     /// </summary>
     /// <returns></returns>
-    int
+    size_t
     max();
 
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
-    int
+    size_t
     sum();
 };

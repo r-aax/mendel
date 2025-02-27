@@ -14,7 +14,7 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    static double mutation_probability;
+    static inline double mutation_probability{ 0.0 };
 
     /// <summary>
     /// 
@@ -39,17 +39,22 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    int max_domain{ 0 };
+    size_t max_domain{ 0 };
 
     /// <summary>
     /// 
     /// </summary>
-    int max_border{ 0 };
+    size_t max_border{ 0 };
 
     /// <summary>
     /// 
     /// </summary>
-    int total_borders{ 0 };
+    size_t total_borders{ 0 };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    static inline size_t counter{ 0 };
 
     /// <summary>
     /// 
@@ -64,16 +69,15 @@ public:
     /// </summary>
     /// <param name="d1"></param>
     /// <param name="d2"></param>
-    /// <param name="mutation_probability"></param>
     Decomposition(const Decomposition& d1,
-                  const Decomposition& d2,
-                  double mutation_probability);
+                  const Decomposition& d2);
 
     /// <summary>
     /// 
     /// </summary>
     inline void birth()
     {
+        ++counter;
         paint_from_genome();
         calculate_metrics();
     }
@@ -111,7 +115,7 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    inline int
+    inline size_t
     cost() const
     {
         return max_domain + max_border + total_borders;

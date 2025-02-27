@@ -29,10 +29,8 @@ Decomposition::Decomposition(AreaGraph& g_,
 /// </summary>
 /// <param name="d1"></param>
 /// <param name="d2"></param>
-/// <param name="mutation_probability"></param>
 Decomposition::Decomposition(const Decomposition& d1,
-                             const Decomposition& d2,
-                             double mutation_probability)
+                             const Decomposition& d2)
     : g(d1.g),
       colors_count(d1.colors_count),
       genome(d1.genome, d2.genome),

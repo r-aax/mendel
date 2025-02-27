@@ -57,7 +57,7 @@ BordersMap::calc(const vector<vector<size_t>>& es,
 /// 
 /// </summary>
 /// <returns></returns>
-int
+size_t
 BordersMap::max()
 {
     size_t r{ 0 };
@@ -77,10 +77,10 @@ BordersMap::max()
 /// 
 /// </summary>
 /// <returns></returns>
-int
+size_t
 BordersMap::sum()
 {
-    int r{ 0 };
+    size_t r{ 0 };
 
     for (auto& row : m)
     {

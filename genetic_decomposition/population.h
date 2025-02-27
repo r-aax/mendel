@@ -56,53 +56,41 @@ public:
     /// 
     /// </summary>
     /// <param name="count"></param>
-    /// <param name="mutation_probability"></param>
-    void revival_random(size_t count,
-                        double mutation_probability);
+    void revival_random(size_t count);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="count"></param>
-    /// <param name="mutation_probability"></param>
-    void revival_best_n_worst_n(size_t count,
-                                double mutation_probability);
+    void revival_best_n_worst_n(size_t count);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="count"></param>
-    /// <param name="mutation_probability"></param>
-    void revival_best_1_worst_n(size_t count,
-                                double mutation_probability);
+    void revival_best_1_worst_n(size_t count);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="count"></param>
-    /// <param name="mutation_probability"></param>
-    void revical_best_pairs(size_t count,
-                            double mutation_probability);
+    void revical_best_pairs(size_t count);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="strategy"></param>
     /// <param name="count"></param>
-    /// <param name="mutation_probability"></param>
     void revival(CrossoverPairsSelectionStrategy strategy,
-                 size_t count,
-                 double mutation_probability);
+                 size_t count);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="strategy"></param>
     /// <param name="extinction_ratio"></param>
-    /// <param name="mutation_probability"></param>
     void evolution_step(CrossoverPairsSelectionStrategy strategy,
-                        double extinction_ratio,
-                        double mutation_probability);
+                        double extinction_ratio);
 
     /// <summary>
     /// 

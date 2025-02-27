@@ -13,23 +13,25 @@ using namespace std;
 /// <returns></returns>
 int main()
 {
+    srand(time({}));
+
     // area
     AreaGraph ag;
     ag.init_from_rectangular_area(10, 10);
     ag.print();
 
-    // create two decompositions
-    Decomposition d1(ag, 4), d2(ag, 4);
-    d1.paint_from_genome();
-    d1.calculate_metrics();
-    d2.paint_from_genome();
-    d2.calculate_metrics();
-    d1.print(10);
-    d2.print(10);
+    // create polulation
+    Population pop(10, ag, 4);
 
-    // create decomposition from parents
-    Decomposition d(d1, d2);
-    d.paint_from_genome();
-    d.calculate_metrics();
-    d.print(10);
+    pop.sort_items();
+    pop.print();
+
+    for (auto i{ 0 }; i < 1000; ++i)
+    {
+        cout << "i = " << i << endl;
+        pop.evolution_step(0.25);
+        pop.print();
+    }
+
+    pop.items[0]->print(10);
 }

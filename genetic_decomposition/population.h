@@ -33,15 +33,35 @@ public:
     /// <summary>
     /// 
     /// </summary>
+    /// <returns></returns>
+    inline size_t size() const
+    {
+        return items.size();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     void
     sort_items();
 
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="count"></param>
+    void worst_extinction(size_t count);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="count"></param>
+    void revival(size_t count);
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <param name="ratio"></param>
-    void
-    evolution(double ratio);
+    void evolution_step(double ratio);
 
     /// <summary>
     /// 

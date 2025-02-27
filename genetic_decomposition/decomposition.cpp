@@ -21,6 +21,7 @@ Decomposition::Decomposition(AreaGraph& g_,
       genome(colors_count, g.nodes_count()),
       nodes_colors(g.nodes_count())
 {
+    birth();
 }
 
 /// <summary>
@@ -35,6 +36,7 @@ Decomposition::Decomposition(const Decomposition& d1,
       genome(d1.genome, d2.genome),
       nodes_colors(g.nodes_count())
 {
+    birth();
 }
 
 /// <summary>

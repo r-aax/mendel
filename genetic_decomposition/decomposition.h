@@ -65,6 +65,15 @@ public:
     /// <summary>
     /// 
     /// </summary>
+    inline void birth()
+    {
+        paint_from_genome();
+        calculate_metrics();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     inline void
     reset_nodes_colors()
     {

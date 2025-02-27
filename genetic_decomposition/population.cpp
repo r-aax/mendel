@@ -58,15 +58,52 @@ Population::sort_items()
 /// <summary>
 /// 
 /// </summary>
+/// <param name="count"></param>
+void Population::worst_extinction(size_t count)
+{
+    assert(count < size());
+
+    for (auto i{ 0 }; i < count; ++i)
+    {
+        Decomposition* d{ items.back() };
+
+        delete d;
+        items.pop_back();
+    }
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="count"></param>
+void Population::revival(size_t count)
+{
+    // one new creature can be born from two parents
+    assert(2 * count <= size());
+
+    size_t lo{ 0 }, hi{ size() - 1 };
+
+    for (auto i{ 0 }; i < count; ++i)
+    {
+        Decomposition* d = new Decomposition(*items[lo + i], *items[hi - i]);
+
+        items.push_back(d);
+    }
+}
+
+/// <summary>
+/// 
+/// </summary>
 /// <param name="ratio"></param>
-void
-Population::evolution(double ratio)
+void Population::evolution_step(double ratio)
 {
     assert((ratio > 0.0) && (ratio <= 0.25));
 
-    int extinction_count = static_cast<int>(items.size() * ratio);
+    size_t count = static_cast<size_t>(items.size() * ratio);
 
-    cout << "extinction : " << extinction_count << endl;
+    worst_extinction(count);
+    revival(count);
+    sort_items();
 }
 
 /// <summary>

@@ -43,6 +43,12 @@ public:
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="inc"></param>
+    void mutate(const vector<vector<int>>& inc);
+
+    /// <summary>
+    /// 
+    /// </summary>
     void
     print();
 };

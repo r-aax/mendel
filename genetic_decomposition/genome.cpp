@@ -42,6 +42,33 @@ Genome::Genome(const Genome& a,
 /// <summary>
 /// 
 /// </summary>
+/// <param name="inc"></param>
+void Genome::mutate(const vector<vector<int>>& inc)
+{
+    // select gene index (color)
+    auto i{ randint(size()) };
+
+    // find node for this color
+    auto node{ items[i] };
+
+    // now check if there are neighbours
+    auto neighbours_count{ inc[node].size() };
+    if (neighbours_count == 0)
+    {
+        return;
+    }
+
+    // select direction to move
+    auto direction{ randint(neighbours_count) };
+
+    // write mutation to genome
+    node = inc[node][direction];
+    items[i] = node;
+}
+
+/// <summary>
+/// 
+/// </summary>
 void
 Genome::print()
 {

@@ -36,6 +36,12 @@ Decomposition::Decomposition(const Decomposition& d1,
       genome(d1.genome, d2.genome),
       nodes_colors(g.nodes_count())
 {
+    // mutation
+    if (randbool(genome_mutation_probability))
+    {
+        genome.mutate(g.inc);
+    }
+
     birth();
 }
 

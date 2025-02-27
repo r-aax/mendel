@@ -10,8 +10,8 @@ using namespace std;
 /// <param name="a"></param>
 /// <param name="b"></param>
 /// <returns></returns>
-inline int
-randint(int a, int b)
+inline int randint(int a,
+                   int b)
 {
     return a + rand() % (b - a + 1);
 }
@@ -19,11 +19,39 @@ randint(int a, int b)
 /// <summary>
 /// 
 /// </summary>
+/// <param name="n"></param>
 /// <returns></returns>
-inline bool
-randbool()
+inline int randint(int n)
+{
+    return randint(0, n - 1);
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+inline bool randbool()
 {
     return randint(0, 1) == 0;
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <returns></returns>
+inline double rand01()
+{
+    return static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
+}
+
+/// <summary>
+///
+/// </summary>
+/// <param name="prob"></param>
+/// <returns></returns>
+inline bool randbool(double prob)
+{
+    return rand01() < prob;
 }
 
 /// <summary>

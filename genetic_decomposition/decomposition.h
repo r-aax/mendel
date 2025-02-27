@@ -57,6 +57,14 @@ public:
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="d1"></param>
+    /// <param name="d2"></param>
+    Decomposition(const Decomposition& d1,
+                  const Decomposition& d2);
+
+    /// <summary>
+    /// 
+    /// </summary>
     inline void
     reset_nodes_colors()
     {

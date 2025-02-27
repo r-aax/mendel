@@ -19,6 +19,16 @@ randint(int a, int b)
 /// <summary>
 /// 
 /// </summary>
+/// <returns></returns>
+inline bool
+randbool()
+{
+    return randint(0, 1) == 0;
+}
+
+/// <summary>
+/// 
+/// </summary>
 class Histogram
 {
 

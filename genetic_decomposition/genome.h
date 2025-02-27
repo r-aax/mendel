@@ -28,6 +28,21 @@ public:
     /// <summary>
     /// 
     /// </summary>
+    Genome(const Genome& a,
+           const Genome& b);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    inline size_t size() const
+    {
+        return items.size();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     void
     print();
 };

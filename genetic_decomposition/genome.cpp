@@ -1,6 +1,7 @@
 #include "genome.h"
 
 #include <iostream>
+#include <cassert>
 
 #include "utils.h"
 
@@ -15,6 +16,26 @@ Genome::Genome(size_t colors_count,
     for (int i{ 0 }; i < colors_count; ++i)
     {
         items.push_back(randint(0, static_cast<int>(nodes_count - 1)));
+    }
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="a"></param>
+/// <param name="b"></param>
+Genome::Genome(const Genome& a,
+               const Genome& b)
+{
+    assert(a.size() == b.size());
+
+    auto s{ a.size() };
+
+    items.clear();
+
+    for (auto i{ 0 }; i < s; ++i)
+    {
+        items.push_back(randbool() ? a.items[i] : b.items[i]);
     }
 }
 

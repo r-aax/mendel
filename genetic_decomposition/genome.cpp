@@ -46,10 +46,10 @@ Genome::Genome(const Genome& a,
 void Genome::mutate(const vector<vector<size_t>>& inc)
 {
     // select gene index (color)
-    auto i{ randint(size()) };
+    size_t i{ static_cast<size_t>(randint(static_cast<int>(size()))) };
 
     // find node for this color
-    auto node{ items[i] };
+    size_t node{ items[i] };
 
     // now check if there are neighbours
     auto neighbours_count{ inc[node].size() };
@@ -59,7 +59,7 @@ void Genome::mutate(const vector<vector<size_t>>& inc)
     }
 
     // select direction to move
-    auto direction{ randint(neighbours_count) };
+    size_t direction{ static_cast<size_t>(randint(static_cast<int>(neighbours_count))) };
 
     // write mutation to genome
     node = inc[node][direction];

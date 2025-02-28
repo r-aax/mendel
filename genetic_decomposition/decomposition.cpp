@@ -4,6 +4,10 @@
 #include <algorithm>
 #include <deque>
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
 #include "borders_map.h"
 #include "utils.h"
 
@@ -39,6 +43,7 @@ Decomposition::Decomposition(const Decomposition& d1,
     // mutation
     if (randbool(mutation_probability))
     {
+        ++mutation_counter;
         genome.mutate(g.inc);
     }
 
@@ -56,7 +61,7 @@ Decomposition::paint_incremental()
     // put into deque data from genome
     for (int i{ 0 }; i < genome.items.size(); ++i)
     {
-        int ni{ genome.items[i] };
+        size_t ni{ genome.items[i] };
 
         nodes_colors[ni] = i;
         q.push_back(ni);
@@ -124,7 +129,9 @@ Decomposition::calculate_metrics()
 void
 Decomposition::print(size_t count_in_row)
 {
-    cout << "DECOMP: max_domain = " << max_domain << ", max_border = " << max_border << ", total_borders = " << total_borders
+    cout << "DECOMP: max_domain = " << max_domain
+         << " (" << theoretical_target_max_domain() << ")"
+         << ", max_border = " << max_border << ", total_borders = " << total_borders
          << ", cost = " << cost() << endl;
     genome.print();
     cout << "COLORS:";
@@ -140,4 +147,68 @@ Decomposition::print(size_t count_in_row)
     }
 
     cout << endl;
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="filename"></param>
+void
+Decomposition::paint(string filename)
+{
+    int side{ 100 };
+    int pix{ 5 };
+    vector<cv::Scalar> colors
+    {
+        cv::Scalar(0x76, 0x45, 0x73),
+        cv::Scalar(0x78, 0x69, 0x96),
+        cv::Scalar(0xae, 0x7d, 0xa2),
+        cv::Scalar(0x15, 0x8b, 0x55),
+        cv::Scalar(0x84, 0xbc, 0x74),
+        cv::Scalar(0xcb, 0xd6, 0xb0),
+        cv::Scalar(0x17, 0x54, 0x2b),
+        cv::Scalar(0xf8, 0xb8, 0x00),
+        cv::Scalar(0xd2, 0x94, 0x6b),
+        cv::Scalar(0xfc, 0x3c, 0x44)
+    };
+
+    // canvas
+    cv::Mat image(side * pix, side * pix, CV_8UC3, cv::Scalar(255, 255, 255));
+
+    if (!image.data)
+    {
+        throw exception("could not open or find the image");
+    }
+
+    // fill
+    int thickness{ -1 };
+
+    // draw distribution
+    for (int i = 0; i < side; ++i)
+    {
+        for (int j = 0; j < side; ++j)
+        {
+            int c{ nodes_colors[side * i + j] };
+
+            cv::rectangle(image,
+                          cv::Point(pix * i, pix * j),
+                          cv::Point(pix * (i + 1) - 1, pix * (j + 1) - 1),
+                          colors[c],
+                          thickness, cv::LINE_8);
+        }
+    }
+
+    // draw genome points with black color
+    for (auto x : genome.items)
+    {
+        auto i{ x / side }, j{ x % side };
+
+        cv::rectangle(image,
+                      cv::Point(pix * i, pix * j),
+                      cv::Point(pix * (i + 1) - 1, pix * (j + 1) - 1),
+                      cv::Scalar(0, 0, 0),
+                      thickness, cv::LINE_8);
+    }
+
+    cv::imwrite(filename, image);
 }

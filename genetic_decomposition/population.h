@@ -43,8 +43,16 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    void
-    sort_items();
+    void sort_items();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    inline size_t best_cost() const
+    {
+        return items[0]->cost();
+    }
 
     /// <summary>
     /// 

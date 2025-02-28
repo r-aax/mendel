@@ -15,7 +15,7 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    vector<int> items;
+    vector<size_t> items;
 
     /// <summary>
     /// 

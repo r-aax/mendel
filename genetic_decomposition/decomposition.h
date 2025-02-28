@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include "area_graph.h"
 #include "genome.h"
 
@@ -54,7 +56,12 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    static inline size_t counter{ 0 };
+    static inline size_t birth_counter{ 0 };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    static inline size_t mutation_counter{ 0 };
 
     /// <summary>
     /// 
@@ -77,7 +84,7 @@ public:
     /// </summary>
     inline void birth()
     {
-        ++counter;
+        ++birth_counter;
         paint_from_genome();
         calculate_metrics();
     }
@@ -115,10 +122,24 @@ public:
     /// <summary>
     /// 
     /// </summary>
+    /// <returns></returns>
+    inline size_t
+    theoretical_target_max_domain() const
+    {
+        return (g.nodes_count() + 1) / colors_count;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     inline size_t
     cost() const
     {
-        return max_domain + max_border + total_borders;
+        const size_t max_domain_penalty_weight{ 10 };
+        auto max_domain_penalty{ max_domain - theoretical_target_max_domain() };
+        auto max_border_penalty{ max_border };
+
+        return max_domain_penalty * max_domain_penalty_weight + max_border_penalty;
     }
 
     /// <summary>
@@ -127,4 +148,11 @@ public:
     /// <param name="count_in_row"></param>
     void
     print(size_t count_in_row);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="filename"></param>
+    void
+    paint(string filename);
 };

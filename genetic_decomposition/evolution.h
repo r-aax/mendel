@@ -91,5 +91,6 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    void run();
+    /// <param name="is_detail_print"></param>
+    void run(bool is_detail_print);
 };

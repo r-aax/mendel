@@ -187,7 +187,7 @@ void Population::revival(CrossoverPairsSelectionStrategy strategy,
 void Population::evolution_step(CrossoverPairsSelectionStrategy strategy,
                                 double extinction_ratio)
 {
-    assert((extinction_ratio > 0.0) && (extinction_ratio <= 0.25));
+    assert((extinction_ratio >= 0.0) && (3 * extinction_ratio < 1.0));
 
     size_t count = static_cast<size_t>(items.size() * extinction_ratio);
 

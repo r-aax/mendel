@@ -10,16 +10,16 @@ using namespace std;
 /// <param name="is_detail_print"></param>
 void Evolution::run(bool is_detail_print)
 {
-    cout << "evo run : population_size = " << population_size
-         << ", extinction_ratio = " << extinction_ratio
-         << ", mutation_probability = " << mutation_probability << endl;
+    if (is_detail_print)
+    {
+        cout << "evo run : population_size = " << population_size
+             << ", extinction_ratio = " << extinction_ratio
+             << ", mutation_probability = " << mutation_probability << endl;
+    }
 
     Decomposition::mutation_probability = mutation_probability;
     Decomposition::birth_counter = 0;
     Decomposition::mutation_counter = 0;
-
-    // initial best result
-    size_t best_cost{ population.best_cost() };
 
     for (int i{ 0 }; i < epochs_count; ++i)
     {
@@ -28,6 +28,11 @@ void Evolution::run(bool is_detail_print)
 
         if (population.is_smooth())
         {
+            if (is_detail_print)
+            {
+                cout << "evo i = " << i << " : population is smooth, evolution is stopped" << endl;
+            }
+
             break;
         }
 
@@ -36,7 +41,7 @@ void Evolution::run(bool is_detail_print)
             cout << "evo i = " << i << " : best cost = "
                  << population.items[0]->cost() << ", worst cost = "
                  << population.items.back()->cost() << endl;
-                
+
             /*
             string istr{ to_string(i) };
 
@@ -49,12 +54,14 @@ void Evolution::run(bool is_detail_print)
 
     if (is_detail_print)
     {
-        // population.items[0]->print(print_row);
-        // population.items[0]->paint("out/winner.png");
+        population.items[0]->print(print_row);
+
+        /*
+        population.items[0]->paint("out/winner.png");
+        */
     }
 
-    // statistics
-    cout << "creatures count : " << Decomposition::birth_counter
-         << ", mutations count : " << Decomposition::mutation_counter << endl;
-    cout << "cost reduced by : " << ((static_cast<double>(best_cost - population.best_cost()) / best_cost) * 100.0) << " %" << endl;
+    best_cost_finish = population.best_cost();
+    best_cost_reduce = (static_cast<double>(best_cost_start) - best_cost_finish) / best_cost_start;
+    creatures_count = Decomposition::birth_counter;
 }

@@ -60,6 +60,26 @@ public:
     /// <summary>
     /// 
     /// </summary>
+    size_t best_cost_start{ 0 };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    size_t best_cost_finish{ 0 };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    double best_cost_reduce{ 0.0 };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    size_t creatures_count{ 0 };
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <param name="area_graph_"></param>
     /// <param name="partitions_count_"></param>
     /// <param name="epochs_count_"></param>
@@ -86,6 +106,7 @@ public:
           population(population_size, area_graph, partitions_count),
           print_row{ print_row_ }
     {
+        best_cost_start = population.best_cost();
     }
 
     /// <summary>

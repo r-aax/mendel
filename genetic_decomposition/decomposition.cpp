@@ -72,7 +72,8 @@ Decomposition::paint_incremental()
     {
         size_t node{ q.front() };
         int color{ nodes_colors[node] };
-        bool is_ngh_found{ false };
+
+        q.pop_front();
 
         // check all neighbours
         for (auto ngh : g.inc[node])
@@ -81,15 +82,7 @@ Decomposition::paint_incremental()
             {
                 nodes_colors[ngh] = color;
                 q.push_back(ngh);
-                is_ngh_found = true;
-
-                break;
             }
-        }
-
-        if (!is_ngh_found)
-        {
-            q.pop_front();
         }
     }
 }
@@ -153,10 +146,11 @@ Decomposition::print(size_t count_in_row)
 /// 
 /// </summary>
 /// <param name="filename"></param>
+/// <param name="side"></param>
 void
-Decomposition::paint(string filename)
+Decomposition::paint(string filename,
+                     size_t side)
 {
-    int side{ 100 };
     int pix{ 5 };
 
     static vector<cv::Scalar> colors

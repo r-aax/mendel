@@ -8,7 +8,9 @@ using namespace std;
 /// 
 /// </summary>
 /// <param name="is_detail_print"></param>
-void Evolution::run(bool is_detail_print)
+/// <param name="is_generate_images"></param>
+void Evolution::run(bool is_detail_print,
+                    bool is_generate_images)
 {
     if (is_detail_print)
     {
@@ -39,26 +41,28 @@ void Evolution::run(bool is_detail_print)
         if (is_detail_print)
         {
             cout << "evo i = " << i << " : best cost = "
-                 << population.items[0]->cost() << ", worst cost = "
-                 << population.items.back()->cost() << endl;
+                << population.items[0]->cost() << ", worst cost = "
+                << population.items.back()->cost() << endl;
+        }
 
-            /*
-            string istr{ to_string(i) };
+        if (is_generate_images)
+        {
+           string istr{ to_string(i) };
 
-            istr.insert(0, 5 - istr.size(), '0');
-            population.items[0]->paint("out/best_" + istr + ".png");
-            population.items.back()->paint("out/worst_" + istr + ".png");
-            */
+           istr.insert(0, 5 - istr.size(), '0');
+           population.items[0]->paint("out/best_" + istr + ".png", side);
+           //population.items.back()->paint("out/worst_" + istr + ".png", side);
         }
     }
 
     if (is_detail_print)
     {
-        population.items[0]->print(print_row);
+        population.items[0]->print(side);
+    }
 
-        /*
-        population.items[0]->paint("out/winner.png");
-        */
+    if (is_generate_images)
+    {
+        population.items[0]->paint("out/winner.png", side);
     }
 
     best_cost_finish = population.best_cost();

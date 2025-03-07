@@ -153,6 +153,8 @@ public:
     /// 
     /// </summary>
     /// <param name="filename"></param>
+    /// <param name="side"></param>
     void
-    paint(string filename);
+    paint(string filename,
+          size_t side);
 };

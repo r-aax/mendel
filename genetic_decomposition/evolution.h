@@ -55,7 +55,7 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    size_t print_row;
+    size_t side;
 
     /// <summary>
     /// 
@@ -87,7 +87,7 @@ public:
     /// <param name="extinction_ratio_"></param>
     /// <param name="mutation_probability_"></param>
     /// <param name="crossover_pairs_selection_strategy_"></param>
-    /// <param name="print_row_"></param>
+    /// <param name="side_"></param>
     Evolution(AreaGraph& area_graph_,
               size_t partitions_count_,
               size_t epochs_count_,
@@ -95,7 +95,7 @@ public:
               double extinction_ratio_,
               double mutation_probability_,
               CrossoverPairsSelectionStrategy crossover_pairs_selection_strategy_,
-              size_t print_row_)
+              size_t side_)
         : area_graph{ area_graph_ },
           partitions_count{ partitions_count_ },
           epochs_count{ epochs_count_ },
@@ -104,7 +104,7 @@ public:
           mutation_probability{ mutation_probability_ },
           crossover_pairs_selection_strategy{ crossover_pairs_selection_strategy_ },
           population(population_size, area_graph, partitions_count),
-          print_row{ print_row_ }
+          side{ side_ }
     {
         best_cost_start = population.best_cost();
     }
@@ -113,5 +113,7 @@ public:
     /// 
     /// </summary>
     /// <param name="is_detail_print"></param>
-    void run(bool is_detail_print);
+    /// <param name="is_generate_images"></param>
+    void run(bool is_detail_print,
+             bool is_generate_images);
 };

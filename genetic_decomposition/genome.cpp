@@ -15,7 +15,7 @@ Genome::Genome(size_t colors_count,
 
     for (int i{ 0 }; i < colors_count; ++i)
     {
-        items.push_back(randint(0, static_cast<int>(nodes_count - 1)));
+        items.push_back(randint(static_cast<int>(nodes_count)));
     }
 }
 

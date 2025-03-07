@@ -7,13 +7,22 @@ using namespace std;
 /// <summary>
 /// 
 /// </summary>
+/// <returns></returns>
+inline int randint()
+{
+    return rand() ^ (rand() << 16);
+}
+
+/// <summary>
+/// 
+/// </summary>
 /// <param name="a"></param>
 /// <param name="b"></param>
 /// <returns></returns>
 inline int randint(int a,
                    int b)
 {
-    return a + rand() % (b - a + 1);
+    return a + randint() % (b - a + 1);
 }
 
 /// <summary>

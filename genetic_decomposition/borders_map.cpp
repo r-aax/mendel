@@ -1,11 +1,13 @@
 #include "borders_map.h"
 
+#include <cassert>
+
 /// <summary>
 /// 
 /// </summary>
 /// <param name="colors_count_"></param>
 BordersMap::BordersMap(size_t colors_count_)
-    : colors_count{ colors_count_ },
+    : colors_count { colors_count_ },
       m(colors_count, vector<size_t>(colors_count, 0))
 {
 }
@@ -38,8 +40,10 @@ BordersMap::calc(const vector<vector<size_t>>& es,
 
     for (auto& e : es)
     {
-        auto a{ e[0] }, b{ e[1] };
-        auto ca{ nc[a] }, cb{ nc[b] };
+        auto a { e[0] }, b { e[1] };
+        auto ca { nc[a] }, cb { nc[b] };
+
+        assert((ca != -1) && (cb != -1));
 
         if (ca != cb)
         {
@@ -60,7 +64,7 @@ BordersMap::calc(const vector<vector<size_t>>& es,
 size_t
 BordersMap::max()
 {
-    size_t r{ 0 };
+    size_t r { 0 };
 
     for (auto& row : m)
     {
@@ -80,7 +84,7 @@ BordersMap::max()
 size_t
 BordersMap::sum()
 {
-    size_t r{ 0 };
+    size_t r { 0 };
 
     for (auto& row : m)
     {

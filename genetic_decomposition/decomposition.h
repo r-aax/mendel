@@ -111,6 +111,12 @@ public:
     /// 
     /// </summary>
     void
+    paint_incremental_2();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void
     paint_from_genome();
 
     /// <summary>

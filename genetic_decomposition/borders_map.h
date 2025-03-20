@@ -15,7 +15,7 @@ public:
     /// <summary>
     /// 
     /// </summary>
-    size_t colors_count;
+    size_t colors_count { 0 };
 
     /// <summary>
     /// 

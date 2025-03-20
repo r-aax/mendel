@@ -55,11 +55,6 @@ void Evolution::run(bool is_detail_print,
         }
     }
 
-    if (is_detail_print)
-    {
-        population.items[0]->print(side);
-    }
-
     if (is_generate_images)
     {
         population.items[0]->paint("out/winner.png", side);

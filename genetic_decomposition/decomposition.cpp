@@ -91,6 +91,15 @@ Decomposition::paint_incremental()
 /// 
 /// </summary>
 void
+Decomposition::paint_incremental_2()
+{
+    // Create queue for each color.
+}
+
+/// <summary>
+/// 
+/// </summary>
+void
 Decomposition::paint_from_genome()
 {
     reset_nodes_colors();
@@ -151,13 +160,13 @@ void
 Decomposition::paint(string filename,
                      size_t side)
 {
-    int pix{ 5 };
-
-    static vector<cv::Scalar> colors
-    {
+    int pix { 5 };
 
 #define RGB(R, G, B) (cv::Scalar(B, G, R))
 
+    static cv::Scalar black { RGB(0x0, 0x0, 0x0) };
+    static vector<cv::Scalar> colors
+    {
         RGB(0xcd, 0x5c, 0x5c), // indianred
         RGB(0xe6, 0x73, 0x00), // fulvous
         RGB(0xb0, 0xbf, 0x1a), // android green
@@ -168,10 +177,9 @@ Decomposition::paint(string filename,
         RGB(0x99, 0xff, 0x99), // mint green
         RGB(0xff, 0xea, 0x80), // jasmine
         RGB(0xc9, 0xc0, 0xbb)  // pale silver
+    };
 
 #undef RBG
-
-    };
 
     // canvas
     cv::Mat image(side * pix, side * pix, CV_8UC3, cv::Scalar(255, 255, 255));
@@ -182,19 +190,20 @@ Decomposition::paint(string filename,
     }
 
     // fill
-    int thickness{ -1 };
+    int thickness { -1 };
 
     // draw distribution
-    for (int i = 0; i < side; ++i)
+    for (int i { 0 }; i < side; ++i)
     {
-        for (int j = 0; j < side; ++j)
+        for (int j { 0 }; j < side; ++j)
         {
-            int c{ nodes_colors[side * i + j] };
+            int c { nodes_colors[side * i + j] };
+            cv::Scalar color = ((c == -1) ? black : colors[c]);
 
             cv::rectangle(image,
                           cv::Point(pix * i, pix * j),
                           cv::Point(pix * (i + 1) - 1, pix * (j + 1) - 1),
-                          colors[c],
+                          color,
                           thickness, cv::LINE_8);
         }
     }
@@ -202,7 +211,7 @@ Decomposition::paint(string filename,
     // draw genome points with black color
     for (auto x : genome.items)
     {
-        auto i{ x / side }, j{ x % side };
+        auto i { x / side }, j { x % side };
 
         cv::rectangle(image,
                       cv::Point(pix * i, pix * j),

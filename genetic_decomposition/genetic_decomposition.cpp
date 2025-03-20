@@ -18,7 +18,7 @@ int main()
     srand(static_cast<unsigned int>(time({})));
 
     // area
-    size_t side{ 300 };
+    size_t side{ 100 };
     AreaGraph area_graph;
     area_graph.init_from_rectangular_area(side, side);
  

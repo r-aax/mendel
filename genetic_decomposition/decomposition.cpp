@@ -59,9 +59,9 @@ Decomposition::paint_incremental()
     deque<size_t> q;
 
     // put into deque data from genome
-    for (int i{ 0 }; i < genome.items.size(); ++i)
+    for (int i { 0 }; i < genome.items.size(); ++i)
     {
-        size_t ni{ genome.items[i] };
+        size_t ni { genome.items[i] };
 
         nodes_colors[ni] = i;
         q.push_back(ni);
@@ -70,8 +70,8 @@ Decomposition::paint_incremental()
     // try to growth
     while (!q.empty())
     {
-        size_t node{ q.front() };
-        int color{ nodes_colors[node] };
+        size_t node { q.front() };
+        int color { nodes_colors[node] };
 
         q.pop_front();
 
@@ -93,7 +93,46 @@ Decomposition::paint_incremental()
 void
 Decomposition::paint_incremental_2()
 {
+    bool cont { true };
+
     // Create queue for each color.
+    vector<deque<size_t>> q(colors_count);
+
+    // For each color put one vertex into the queue.
+    for (int i { 0 }; i < colors_count; ++i)
+    {
+        q[i].push_back(genome.items[i]);
+    }
+
+    // Now we try to growth while at least one queue is not empty.
+    while (cont)
+    {
+        cont = false;
+
+        for (size_t c { 0 }; c < colors_count; ++c)
+        {
+            if (q[c].empty())
+            {
+                continue;
+            }
+
+            cont = true;
+
+            size_t node { q[c].front() };
+
+            q[c].pop_front();
+
+            if (nodes_colors[node] == -1)
+            {
+                nodes_colors[node] = c;
+
+                for (auto ngh : g.inc[node])
+                {
+                    q[c].push_back(ngh);
+                }
+            }
+        }
+    }
 }
 
 /// <summary>
@@ -103,7 +142,7 @@ void
 Decomposition::paint_from_genome()
 {
     reset_nodes_colors();
-    paint_incremental();
+    paint_incremental_2();
 }
 
 /// <summary>
